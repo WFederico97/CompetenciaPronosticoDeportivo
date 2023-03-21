@@ -1,0 +1,3 @@
+arg,1,0,per
+mex,0,0,col
+chi,1,2,uru

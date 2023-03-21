@@ -1,0 +1,60 @@
+Entrega 1: devolver el puntaje del pronostico de una persona
+
+se deben leer dos archivos csv diferentes, los resultados y los pronosticos
+
+resultados va contener la informacion de los partidos de la ronda, podiendo variar la cantidad de partidos
+
+se debe extraer la informacion de cada nombre de equipo y sus respectivos goles y almacenarlo instanciando un objeto utulizando la clase partido
+
+Para obtener el resultado se puede usar un metodo que retorne un resultado detectando quien gano o si se empato, comparando los numeros.
+
+Para comparar el resultado con el pronostico (donde en la primer entrega evaluamos el puntaje de una sola persona)
+se debe extraer la informacion, instanciar el pronostico indicando cual de los 3 resultados elijio en cada partido
+
+Despues con un metod se evaluara si acerto para otorgarle un punto a esa persona
+
+para imprimir el puntaje de la persona evaluada, se accedera al puntaje otorgado a esa persona 
+
+....
+
+Despues como la competencia contendra a varias personas se debera ordenar de mayor a menor y devolver el primer puesto pqra identificar el ganador
+
+Entrega 2: 
+modificar el archivo para que contenga multiples rondas y personas
+(agregar ronda y participante al comienzo)
+validar datos antes de usarlos
+utilizar maven
+imprimir cada persona con su (puntaje total y pronosticos acertados, en esta entrega es lo mismo)
+poder testear el resultado de una persona en dos rondas consecutivas
+
+Entrega 3: 
+leer los pronósticos desde una base de datos MySQL
+se importara como argumento los resultados y una configuracion
+
+la configuracion modificar el puntaje para sumar puntos por pronosticos perfectos de ronda y o fase, y poder modificar cuanto suma cada acierto.
+
+Se pueden analizar como agregar otras condiciones si se desea, pero siendo simples evitar problemas
+
+Ronda
+numero
+partidos
+Puntos
+
+Partido
+Equipo1
+Equipo2
+GolesE1
+GolesE2
+Resultado(equipo)
+ResultadoEnum
+
+Equipo
+Nombre 
+Descripcion
+
+Pronostico
+Partido
+Equipo
+Resultado
+Puntos
+
