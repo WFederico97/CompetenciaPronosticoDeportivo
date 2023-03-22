@@ -1,3 +1,3 @@
 arg,1,0,per
-mex,2,3,col
+mex,0,0,col
 chi,1,2,uru
