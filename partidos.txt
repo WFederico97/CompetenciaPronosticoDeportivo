@@ -1,3 +1,4 @@
-arg,1,0,per
-mex,0,0,col
-chi,1,2,uru
+1,arg,1,0,per
+1,mex,0,0,col
+1,chi,1,2,uru
+2,arg,4,2,fra
