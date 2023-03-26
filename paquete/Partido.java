@@ -29,5 +29,10 @@ public class Partido {
         }
         return resultado;
     }
+
+    @Override
+    public String toString() {
+        return this.equipo1.getNombre() + ") " + this.golesEquipo1 + " - " + this.golesEquipo2 + " (" + this.equipo2.getNombre();
+    }
 }
 

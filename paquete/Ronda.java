@@ -1,15 +1,30 @@
 package paquete;
+import java.util.ArrayList;
 
 public class Ronda{
-    private int num;
-    private Partido[] partidos;
-    public Ronda(int espacio){
-        this.partidos = new Partido[espacio];
+    private int numero;
+    private ArrayList<Partido> partidos;
+    public Ronda(int numero){
+        this.numero = numero;
+        this.partidos = new ArrayList<>();
     }
-    public void setPartido(int i, Partido partido) {
-        partidos[i] = partido;
+
+    public int getNumero(){
+        return this.numero;
+    }
+
+    public void addPartido(Partido partido) {
+
+        this.partidos.add(partido);
     }
     public Partido getPartido(int i){
-        return partidos[i];
+
+        return this.partidos.get(i);
     }
+
+    public ArrayList<Partido> getPartidos(){
+        return partidos;
+    }
+
+
 }
