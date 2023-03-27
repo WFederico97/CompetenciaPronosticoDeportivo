@@ -1,6 +1,0 @@
-pepe,arg,x,0,per
-pepe,mex,0,x,col
-pepe,chi,0,0,uru
-moni,arg,0,x,per
-moni,mex,x,0,col
-moni,chi,-1,0,uru

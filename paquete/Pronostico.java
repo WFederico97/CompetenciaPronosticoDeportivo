@@ -5,12 +5,6 @@ public class Pronostico{
     private Equipo equipo;
     private ResultadoEnum resultado;
 
-    public Pronostico(Partido partido, Equipo equipo, ResultadoEnum resultado) {
-        this.partido = partido;
-        this.equipo = equipo;
-        this.resultado = resultado;
-    }
-
     public void setPartido(Partido partido){
         this.partido = partido;
     }
@@ -24,7 +18,20 @@ public class Pronostico{
         return resultado;
     }
     public boolean Acertado() {
-        return getResultado().equals(partido.Resultado(equipo));
-
+        if(this.equipo == null && getResultado() == (ResultadoEnum.empate)){
+            return true;
+        }
+        return getResultado().equals(this.partido.Resultado(this.equipo));
     }
+
+    @Override
+    public String toString(){
+        if(this.equipo == null) {
+            return this.partido.toString() +
+                    " | " + this.resultado + " | ";
+        } else
+        return this.partido.toString() +
+                " | " + this.equipo + " " + this.resultado ;
+    }
+
 }

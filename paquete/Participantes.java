@@ -2,15 +2,20 @@ package paquete;
 import java.util.ArrayList;
 
 public class Participantes {
-    private ArrayList<Persona> participantes;
+    private static ArrayList<Persona> participantes;
     public Participantes(){
-        this.participantes = new ArrayList<>();
+        participantes = new ArrayList<>();
     }
 
-    public void addPersona(Persona persona){
-        this.participantes.add(persona);
+    public static void addPersona(Persona persona){
+        participantes.add(persona);
     }
+    public  Persona getPersona(int i){
+        return participantes.get(i);
+    }
+
     public ArrayList<Persona> getPersonas(){
+
         return participantes;
     }
 }

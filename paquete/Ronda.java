@@ -27,4 +27,7 @@ public class Ronda{
     }
 
 
+    public int getSize() {
+        return this.partidos.size();
+    }
 }
