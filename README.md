@@ -1,2 +1,2 @@
 # CompetenciaPronosticoDeportivo
-Trabajo Practico Integrador Grupal (Apolo)
+Trabajo Practico Integrador
