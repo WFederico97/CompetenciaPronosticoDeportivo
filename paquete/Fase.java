@@ -2,18 +2,17 @@ package paquete;
 import java.util.ArrayList;
 
 public class Fase {
-    private int numero;
-    private ArrayList<Ronda> rondas;
+    private static ArrayList<Ronda> rondas;
     public Fase() {
         rondas = new ArrayList<>();
     }
 
-    public ArrayList<Ronda> getFase() {
-        return rondas;
-    }
-
     public void addRonda(Ronda ronda) {
         rondas.add(ronda);
+    }
+
+    public static int getRondaSize(){
+        return rondas.size();
     }
 
     public Ronda getRonda(int i){
