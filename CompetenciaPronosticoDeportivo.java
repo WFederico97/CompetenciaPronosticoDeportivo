@@ -1,6 +1,7 @@
 import paquete.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 public class CompetenciaPronosticoDeportivo{
     public static void main(String[] args) throws IOException {
@@ -8,7 +9,7 @@ public class CompetenciaPronosticoDeportivo{
         RegistrarPartidos(fase);
         Participantes participantes = new Participantes();
         GenerarPronosticos(fase, participantes);
-        GenerarPuntaje(participantes);
+        GenerarPuntaje(fase, participantes);
         TablaPosiciones(participantes);
     }
      private static void RegistrarPartidos(Fase fase) throws IOException {
@@ -21,19 +22,15 @@ public class CompetenciaPronosticoDeportivo{
             String linea = scanner.nextLine();
             String[] data = linea.split(",");
             String numRonda = data[0];
-
             if(!numRonda.equals(String.valueOf(ronda.getNumero()))) {
                 System.out.println("Ronda: " + ronda.getNumero() + " " + ronda.getPartidos());
                 fase.addRonda(ronda);
                 ronda = new Ronda(Integer.parseInt(numRonda));
             }
-
             String local = data[1];
             int golesLocal = Integer.parseInt(data[2]);
             int golesVisitante = Integer.parseInt(data[3]);
             String visitante = data[4];
-
-            //buscar equipo antes de crear
             Equipo equipoLocal = new Equipo(local);
             Equipo equipoVisitante = new Equipo(visitante);
 
@@ -72,51 +69,36 @@ public class CompetenciaPronosticoDeportivo{
             pronostico.setPartido(partido);
             pronostico.apuesta(partido,data);
             pronostico.resultado(data);
-
             System.out.println(pronostico);
             participantes.getPersona(numPersona).addPronostico(pronostico);
             numPartido++;
-
         }
-
     }
 
-    private static void GenerarPuntaje(Participantes participantes) {
+    private static void GenerarPuntaje(Fase fase, Participantes participantes) {
         for (int i = 0; i < participantes.getPersonas().size(); i++) {
             Persona persona = participantes.getPersona(i);
-
-                    for (int j = 0; j < persona.getPronosticos().size(); j++) {
-
+                for (int k = 0; k < Fase.getRondaSize(); k++) {
+                    for (int j = 0; j < fase.getRonda(k).getPartidos().size(); j++) {
                         Pronostico pronostico = persona.getPronostico(j);
                         if (pronostico.acertado()) {
                             persona.SumaPunto();
                         }
-
-
-            }
-            System.out.println(participantes.getPersona(i) + " puntos totales " + participantes.getPersona(i).getPuntos());
+                    }
+                    persona.setPuntosRonda(persona.getPuntos(), k);
+                    System.out.println(participantes.getPersona(i) + " obtuvo " + persona.getPuntos() + " la ronda " + ( k + 1 ));
+                }
+            System.out.println(participantes.getPersona(i) + " obtuvo " + participantes.getPersona(i).getPuntos() + " puntos totales.");
         }
+
     }
     private static void TablaPosiciones(Participantes participantes){
-        System.out.println("Tabla de Posiciones");
-        int cantPersonas = participantes.getPersonas().size();
-        String[] posiciones = new String[cantPersonas];
-        int indice = 0;
-        for (int i = 0; i < cantPersonas; i++) {
-            int max = 0;
-            for (int j = 0; j < cantPersonas; j++) {
-                int puntos = participantes.getPersona(j).getPuntos();
-                if (max < puntos) {
-                    max = puntos;
-                    indice = j;
-                }
-            }
-            participantes.getPersona(indice).setPuntos(0);
-            posiciones[i] = participantes.getPersona(indice).getNombre();
-        }
-        for (int i = 0; i < cantPersonas; i++) {
-            System.out.println(i + 1 + "# " + posiciones[i]);
+        System.out.println("///TABLA DE POSICIONES///");
+        List<Persona> personas = participantes.getPersonas();
+        personas.sort((p1, p2) -> p2.getPuntos() - p1.getPuntos());
+        for (int i = 0; i < personas.size(); i++) {
+            Persona persona = personas.get(i);
+            System.out.println((i + 1) + "# " + persona.getNombre().toUpperCase() + " [" + persona.getPuntos() + "] puntos con " + persona.getPuntos() + " aciertos");
         }
     }
-
 }
