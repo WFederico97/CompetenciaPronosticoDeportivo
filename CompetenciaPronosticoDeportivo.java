@@ -18,27 +18,53 @@ public class CompetenciaPronosticoDeportivo{
         Scanner scanner = new Scanner(new File(archivo));
         scanner.useDelimiter(",");
         Ronda ronda = new Ronda(1);
+
         while (scanner.hasNext()) {
             String linea = scanner.nextLine();
             String[] data = linea.split(",");
-            String numRonda = data[0];
-            if(!numRonda.equals(String.valueOf(ronda.getNumero()))) {
-                System.out.println("Ronda: " + ronda.getNumero() + " " + ronda.getPartidos());
-                fase.addRonda(ronda);
-                ronda = new Ronda(Integer.parseInt(numRonda));
+            ///Script para verificar si el array tiene la cantidad de espacios correctos
+            if (data.length !=5){
+                continue;
             }
-            String local = data[1];
-            int golesLocal = Integer.parseInt(data[2]);
-            int golesVisitante = Integer.parseInt(data[3]);
-            String visitante = data[4];
-            Equipo equipoLocal = new Equipo(local);
-            Equipo equipoVisitante = new Equipo(visitante);
+            ///
 
-            Partido partido = new Partido(equipoLocal,equipoVisitante,golesLocal,golesVisitante);
-            ronda.addPartido(partido);
+            String numRonda = data[0];
+            String local = data[1];
+            String golesLocal = data[2];
+            String golesVisita = data[3];
+            String visitante = data[4];
+
+            ///Script para verificar que el valor de Goles sean enteros
+
+            try {
+                int golesLocalInt = Integer.parseInt(golesLocal);
+                int golesVisitanteInt = Integer.parseInt(golesVisita);
+            }catch (NumberFormatException e){
+                System.out.println("Algo salió mal..." + "Revisar si los valores de goles son enteros");
+            }
+            if (numRonda.equals(String.valueOf(ronda.getNumero()))){
+                ///Declaro los dos equipos como nuevos objetos , utilizando data1 y 4
+                Equipo equipoLocal = new Equipo(local);
+                Equipo equipoVisitante = new Equipo(visitante);
+                ///
+                Partido partido = new Partido(equipoLocal,equipoVisitante,
+                        Integer.parseInt(golesLocal),Integer.parseInt(golesVisita));
+                ronda.addPartido(partido);
+            } else {
+                System.out.println(ronda.getNumero() + " " + ronda.getPartidos());
+                fase.addRonda(ronda);
+
+                ronda = new Ronda(Integer.parseInt(numRonda));
+                Equipo equipoLocal = new Equipo(data[1]);
+                Equipo equipoVisitante = new Equipo(data[4]);
+                Partido partido = new Partido(equipoLocal, equipoVisitante,
+                        Integer.parseInt(data[2]),Integer.parseInt(data[3]));
+                ronda.addPartido(partido);
+            }
         }
-        System.out.println("Ronda: " + ronda.getNumero() + " " + ronda.getPartidos());
-        fase.addRonda(ronda);
+        if (!scanner.hasNext()){
+            fase.addRonda(ronda);
+        }
     }
     private static void GenerarPronosticos(Fase fase, Participantes participantes) throws IOException {
         String file = "pronosticos.csv";
@@ -50,7 +76,9 @@ public class CompetenciaPronosticoDeportivo{
         int numRonda = 0;
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            String[] data = line.split(",");String nombre = data[0];
+            String[] data = line.split(",");
+            String nombre = data[0];
+
             if (!nombre.equals(ultimoNombre)) {
                 System.out.println("Generando pronosticos de " + nombre);
                 Persona persona = new Persona(nombre);
