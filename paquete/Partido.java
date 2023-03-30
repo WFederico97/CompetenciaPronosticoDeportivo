@@ -29,5 +29,18 @@ public class Partido {
         }
         return resultado;
     }
+
+    public Equipo getLocal() {
+        return equipo1;
+    }
+
+    public Equipo getVisit() {
+        return equipo2;
+    }
+
+    @Override
+    public String toString() {
+        return this.equipo1.getNombre() + ") " + this.golesEquipo1 + " - " + this.golesEquipo2 + " (" + this.equipo2.getNombre();
+    }
 }
 
